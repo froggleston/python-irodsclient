@@ -140,7 +140,8 @@ class CollectionManager(Manager):
         )
         message = iRODSMessage('RODS_API_REQ', msg=message_body,
                                int_info=api_number['PHY_PATH_REG_AN'])
-
+        print(message)
         with self.sess.pool.get_connection() as conn:
             conn.send(message)
             response = conn.recv()
+            print(response)
