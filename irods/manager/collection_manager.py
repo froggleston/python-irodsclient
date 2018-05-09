@@ -120,11 +120,13 @@ class CollectionManager(Manager):
             response = conn.recv()
 
 
-    def register(self, dir_path, coll_path, recurse=False, **options):
+    def register(self, dir_path, coll_path, recurse=False, force=False, **options):
         options[kw.FILE_PATH_KW] = dir_path
         options[kw.COLLECTION_KW] = ''
         if recurse:
             options[kw.RECURSIVE_OPR__KW] = ''
+        if force:
+            options[kw.FORCE_FLAG_KW] = ''
 
         message_body = FileOpenRequest(
             objPath=coll_path,
