@@ -69,7 +69,7 @@ class iRODSMessage(object):
         self.int_info = int_info
 
     @staticmethod
-    def recv(sock):
+    def recv(sock, debug=True):
         # rsp_header_size = sock.recv(4, socket.MSG_WAITALL)
         rsp_header_size = _recv_message_in_len(sock, 4)
         rsp_header_size = struct.unpack(">i", rsp_header_size)[0]
@@ -92,8 +92,9 @@ class iRODSMessage(object):
         # bs = sock.recv(bs_len, socket.MSG_WAITALL) if bs_len != 0 else None
         bs = _recv_message_in_len(sock, bs_len) if bs_len != 0 else None
 
-        # if message:
-        #     logger.debug(message)
+        if message and debug:
+            logger.debug(message)
+            print(message)
 
         return iRODSMessage(msg_type, message, error, bs, int_info)
 
